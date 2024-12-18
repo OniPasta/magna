@@ -1,0 +1,64 @@
+<!-- fetchEmails.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch Emails</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    p {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Fetch All Zoho Emails</h1>
+  <button onclick="fetchEmails()">Fetch Emails</button>
+  <p id="statusMessage"></p>
+
+  <script>
+    function fetchEmails() {
+      document.getElementById('statusMessage').innerText = 'Fetching emails...';
+
+      // Call the backend to fetch emails from Zoho and send them to Firebase
+      fetch('/api/fetchEmails')  // Vercel backend endpoint
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            document.getElementById('statusMessage').innerText = 'Emails fetched and saved to Firebase!';
+          } else {
+            document.getElementById('statusMessage').innerText = 'Error fetching emails.';
+          }
+        })
+        .catch(error => {
+          document.getElementById('statusMessage').innerText = 'Error fetching emails.';
+          console.error(error);
+        });
+    }
+  </script>
+
+</body>
+</html>
